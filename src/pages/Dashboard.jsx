@@ -342,7 +342,7 @@ export default function Dashboard() {
         color: isReady ? '#065f46' : '#92400e',
         display: 'inline-flex', alignItems: 'center', gap: '4px'
       }}>
-        {isReady ? 'вњ…' : 'вЏі'} {isReady ? 'Tayyor' : 'Kutilmoqda'}
+        {isReady ? '✅' : '⏳'} {isReady ? 'Tayyor' : 'Kutilmoqda'}
       </span>
     );
   };
@@ -370,7 +370,7 @@ export default function Dashboard() {
         {/* Logo */}
         <div style={s.sidebarHeader}>
           <div style={s.logoRow}>
-            <div style={s.logoIcon}>рџ§Є</div>
+            <div style={s.logoIcon}>🧪</div>
             <div>
               <div style={s.logoTitle}>Ranomed -2 </div>
               <div style={s.logoSub}>Laborant Panel</div>
@@ -383,9 +383,9 @@ export default function Dashboard() {
           <div style={s.navSection}>ASOSIY</div>
 
           {[
-            { label: 'рџ“Љ Dashboard', active: true },
-            { label: 'вЏі Kutilayotganlar', active: false, count: pending },
-            { label: 'вњ… Tayyor tahlillar', active: false, count: ready },
+            { label: '📊 Dashboard', active: true },
+            { label: '⏳ Kutilayotganlar', active: false, count: pending },
+            { label: '✅ Tayyor tahlillar', active: false, count: ready },
           ].map((item, i) => (
             <button
               key={i}
@@ -416,7 +416,7 @@ export default function Dashboard() {
               <div style={s.userName}>{user.name || 'Laborant'}</div>
               <div style={s.userRole}>Laborant</div>
             </div>
-            <button className="logout-btn" style={s.logoutBtn} onClick={handleLogout} title="Chiqish">рџљЄ</button>
+            <button className="logout-btn" style={s.logoutBtn} onClick={handleLogout} title="Chiqish">🚪</button>
           </div>
         </div>
       </aside>
@@ -429,7 +429,7 @@ export default function Dashboard() {
           <h1 style={s.pageTitle}>Laboratoriya Boshqaruvi</h1>
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
             <div style={s.timePill}>
-              рџ•ђ {time.toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+              🕐 {time.toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
               &nbsp;&nbsp;|&nbsp;&nbsp;
               {time.toLocaleDateString('uz-UZ', { day: '2-digit', month: 'short', year: 'numeric' })}
             </div>
@@ -457,9 +457,9 @@ export default function Dashboard() {
           {/* Stats */}
           <div style={s.statsRow}>
             {[
-              { label: 'Kutilayotgan tahlillar', value: pending, color: '#d97706', bg: '#fef3c7', icon: 'вЏі' },
-              { label: 'Tayyor natijalari', value: ready, color: '#059669', bg: '#d1fae5', icon: 'вњ…' },
-              { label: 'Jami tahlillar', value: total, color: '#6366f1', bg: '#ede9fe', icon: 'рџ”¬' },
+              { label: 'Kutilayotgan tahlillar', value: pending, color: '#d97706', bg: '#fef3c7', icon: '⏳' },
+              { label: 'Tayyor natijalari', value: ready, color: '#059669', bg: '#d1fae5', icon: '✅' },
+              { label: 'Jami tahlillar', value: total, color: '#6366f1', bg: '#ede9fe', icon: '🔬' },
             ].map((stat, i) => (
               <div key={i} className="stat-card-hover" style={s.statCard()}>
                 <div style={s.statIconBox(stat.bg)}>{stat.icon}</div>
@@ -478,23 +478,23 @@ export default function Dashboard() {
                 style={s.filterBtn(filter === 'kutilmoqda', COLORS.warning)}
                 onClick={() => setFilter('kutilmoqda')}
               >
-                вЏі Kutilayotganlar ({pending})
+                ⏳ Kutilayotganlar ({pending})
               </button>
               <button
                 style={s.filterBtn(filter === 'tayyor', COLORS.success)}
                 onClick={() => setFilter('tayyor')}
               >
-                вњ… Tayyor ({ready})
+                ✅ Tayyor ({ready})
               </button>
               <button
                 style={s.filterBtn(filter === 'barcha', '#64748b')}
                 onClick={() => setFilter('barcha')}
               >
-                рџ“‹ Barchasi ({total})
+                📋 Barchasi ({total})
               </button>
             </div>
             <button className="refresh-btn" style={s.refreshBtn} onClick={fetchTests}>
-              рџ”„ Yangilash
+              🔄 Yangilash
             </button>
           </div>
 
@@ -502,12 +502,12 @@ export default function Dashboard() {
           <div style={s.tableCard}>
             {loading ? (
               <div style={{ ...s.emptyBox }}>
-                <div style={{ ...s.emptyIcon }}>вЊ›</div>
+                <div style={{ ...s.emptyIcon }}>⌛</div>
                 <div style={s.emptyText}>Tahlillar yuklanmoqda...</div>
               </div>
             ) : filteredTests.length === 0 ? (
               <div style={s.emptyBox}>
-                <div style={s.emptyIcon}>рџ“Ґ</div>
+                <div style={s.emptyIcon}>📥</div>
                 <div style={s.emptyText}>
                   Hozircha tahlillar yo'q.<br />
                   Kassirdan to'lov tasdiqlangach tahlillar avtomatik shu yerda ko'rinadi.
@@ -559,7 +559,7 @@ export default function Dashboard() {
                             style={s.actionBtn(test.status === 'tayyor')}
                             onClick={() => handleOpenModal(test)}
                           >
-                            {test.status === 'tayyor' ? 'вњЏпёЏ Tahrirlash' : 'рџ“ќ Natija kiritish'}
+                            {test.status === 'tayyor' ? '✏️ Tahrirlash' : '📝 Natija kiritish'}
                           </button>
                         </td>
                       </tr>
@@ -577,8 +577,8 @@ export default function Dashboard() {
         <div style={s.modalOverlay}>
           <div style={s.modalBox}>
             <div style={s.modalHeader}>
-              <span style={s.modalTitle}>рџ§Є Tahlil Natijasini Kiritish</span>
-              <button className="close-btn" style={s.closeBtn} onClick={() => setSelectedTest(null)}>вњ•</button>
+              <span style={s.modalTitle}>🧪 Tahlil Natijasini Kiritish</span>
+              <button className="close-btn" style={s.closeBtn} onClick={() => setSelectedTest(null)}>✖️</button>
             </div>
             <div style={s.modalBody}>
               <div style={s.infoRow}>
@@ -616,7 +616,7 @@ export default function Dashboard() {
                 onClick={handleSaveResults}
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'вЊ› Saqlanmoqda...' : 'вњ… Natijani Saqlash'}
+                {isSubmitting ? '⌛ Saqlanmoqda...' : '✅ Natijani Saqlash'}
               </button>
             </div>
           </div>
