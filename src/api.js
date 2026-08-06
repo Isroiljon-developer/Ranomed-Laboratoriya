@@ -1,25 +1,24 @@
-﻿import axios from 'axios';
+const BASE_URL = 'http://localhost:9000/api';
 
-const api = axios.create({
-  baseURL: 'https://ranomed-2.onrender.com/api',
-  headers: {
-    'Content-Type': 'application/json'
-  }
-});
+const api = {
+  async request(endpoint, options = {}) {
+    const token = localStorage.getItem('token');
+    const headers = { 'Content-Type': 'application/json', ...options.headers };
+    if (token) headers['Authorization'] = `Bearer ${token}`;
 
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
-
-api.interceptors.response.use(
-  (response) => response.data,
-  (error) => {
-    return Promise.reject(error.response?.data || { message: error.message });
-  }
-);
+    try {
+      const response = await fetch(`${BASE_URL}${endpoint}`, { ...options, headers });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.error || 'Server xatosi');
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  },
+  get(endpoint) { return this.request(endpoint, { method: 'GET' }); },
+  post(endpoint, body) { return this.request(endpoint, { method: 'POST', body: JSON.stringify(body) }); },
+  put(endpoint, body) { return this.request(endpoint, { method: 'PUT', body: JSON.stringify(body) }); },
+  delete(endpoint) { return this.request(endpoint, { method: 'DELETE' }); }
+};
 
 export default api;
